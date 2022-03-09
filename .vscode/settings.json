@@ -1,0 +1,12 @@
+{
+    "esbonio.server.enabled": true,
+    "files.associations": {
+        "*.vue": "vue",
+        ".bash_functions": "shellscript",
+        "Makefile-docker": "makefile",
+        "algorithm": "cpp",
+        "random": "cpp",
+        "filesystem": "cpp",
+        "*.ipp": "cpp"
+    }
+}

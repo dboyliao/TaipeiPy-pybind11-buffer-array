@@ -13427,8 +13427,8 @@ a.anchor-link {
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1 == 4 * 0 + 1:&quot;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;6 == 4 * 1 + 2:&quot;</span><span class="p">,</span> <span class="mi">6</span> <span class="o">==</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1 == 4 * 0 + 1 * 1:&quot;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">4</span><span class="o">*</span><span class="mi">0</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;6 == 4 * 1 + 1 * 2:&quot;</span><span class="p">,</span> <span class="mi">6</span> <span class="o">==</span> <span class="mi">4</span><span class="o">*</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13445,8 +13445,8 @@ a.anchor-link {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>1 == 4 * 0 + 1: True
-6 == 4 * 1 + 2: True
+<pre>1 == 4 * 0 + 1 * 1: True
+6 == 4 * 1 + 1 * 2: True
 </pre>
 </div>
 </div>
@@ -13524,39 +13524,18 @@ arr_flatten[6] == array[1, 2]: True
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>linear offset: the offset of an element in the flattened array</li>
-<li>$\mathbf{arr}$: a m-dims array<ul>
-<li>strides: $(s_0, s_1, ..., s_m)$</li>
-<li>shape: $(d_0, d_1, ..., d_m)$</li>
-</ul>
-</li>
-<li>$e = \mathbf{arr}[i_0, i_1, ..., i_m]$, element in $\mathbf{arr}$<ul>
-<li>with linear offset $\text{offset}_e$</li>
-</ul>
-</li>
-</ul>
-<p>Then we have:</p>
-$$
-    \text{offset}_e = \sum\limits_{j=0}^{m} d_j \cdot s_j
-$$
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <p><img src="images/array_2d_view.drawio.svg" alt="array-2d-view"></p>
 
 </div>
 </div>
-</div><div class="fragment">
+</div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">array</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr3</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">arr3</span>
 </pre></div>
 
     </div>
@@ -13594,13 +13573,13 @@ $$
 </div>
 </div>
 
-</div></div></section><section>
+</div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">array</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr3</span><span class="o">.</span><span class="n">strides</span>
 </pre></div>
 
     </div>
@@ -13619,8 +13598,7 @@ $$
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15],
-      dtype=int8)</pre>
+<pre>(8, 4, 2, 1)</pre>
 </div>
 
 </div>
@@ -13628,6 +13606,92 @@ $$
 </div>
 </div>
 
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;11 == 8 * 1 + 4 * 0 + 2 * 1 + 1 * 1:&quot;</span><span class="p">,</span> <span class="mi">11</span> <span class="o">==</span> <span class="mi">8</span> <span class="o">*</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">0</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>11 == 8 * 1 + 4 * 0 + 2 * 1 + 1 * 1: True
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div></div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr_flatten</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">==</span> <span class="n">arr3</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[12]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>linear offset: the offset of an element in the flattened array</li>
+<li>$\mathbf{arr}$: a m-dims array<ul>
+<li>strides: $(s_0, s_1, ..., s_m)$</li>
+<li>shape: $(d_0, d_1, ..., d_m)$</li>
+</ul>
+</li>
+<li>$e = \mathbf{arr}[i_0, i_1, ..., i_m]$, element in $\mathbf{arr}$<ul>
+<li>with linear offset $\text{offset}_e$</li>
+</ul>
+</li>
+</ul>
+<p>Then we have:</p>
+$$
+    \text{offset}_e = \sum\limits_{j=0}^{m} s_j \cdot i_j
+$$
+</div>
+</div>
 </div></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -14455,7 +14519,151 @@ $$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="pybind11-Buffer-and-Array-Interface"><code>pybind11</code> Buffer and Array Interface<a class="anchor-link" href="#pybind11-Buffer-and-Array-Interface">&#182;</a></h1>
+<h1 id="pybind11-Buffer-and-Array-Interface"><code>pybind11</code> Buffer and Array Interface<a class="anchor-link" href="#pybind11-Buffer-and-Array-Interface">&#182;</a></h1><p><a href="https://pybind11.readthedocs.io/en/stable/advanced/pycpp/numpy.html#numpy">Documentation</a></p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>A very good tutorial to CPython buffer protocol<ul>
+<li><a href="https://jakevdp.github.io/blog/2014/05/05/introduction-to-the-python-buffer-protocol/">https://jakevdp.github.io/blog/2014/05/05/introduction-to-the-python-buffer-protocol/</a></li>
+<li>CPython Bufferinfo object: <a href="https://docs.python.org/3/c-api/buffer.html#buffer-structure">https://docs.python.org/3/c-api/buffer.html#buffer-structure</a></li>
+<li><strong>WARN</strong>: long and tedious C code</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><code>pybind11</code> make it easy to expose your type in C++ to Python via buffer protocol</li>
+</ul>
+
+</div>
+</div>
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="pybind11::buffer_info"><code>pybind11::buffer_info</code><a class="anchor-link" href="#pybind11::buffer_info">&#182;</a></h2>
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">buffer_info</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+    <span class="n">py</span><span class="o">::</span><span class="kt">ssize_t</span> <span class="n">itemsize</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">format</span><span class="p">;</span>
+    <span class="n">py</span><span class="o">::</span><span class="kt">ssize_t</span> <span class="n">ndim</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">py</span><span class="o">::</span><span class="kt">ssize_t</span><span class="o">&gt;</span> <span class="n">shape</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">py</span><span class="o">::</span><span class="kt">ssize_t</span><span class="o">&gt;</span> <span class="n">strides</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+</div>
+</div>
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="n">py</span><span class="o">::</span><span class="n">class_</span><span class="o">&lt;</span><span class="n">MyMatrix</span><span class="o">&gt;</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s">&quot;MyMatrix&quot;</span><span class="p">,</span> <span class="n">py</span><span class="o">::</span><span class="n">buffer_protocol</span><span class="p">())</span>
+  <span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="n">py</span><span class="o">::</span><span class="n">init</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">(),</span> <span class="n">py</span><span class="o">::</span><span class="n">arg</span><span class="p">(</span><span class="s">&quot;rows&quot;</span><span class="p">),</span> <span class="n">py</span><span class="o">::</span><span class="n">arg</span><span class="p">(</span><span class="s">&quot;cols&quot;</span><span class="p">))</span>
+  <span class="p">.</span><span class="n">def_buffer</span><span class="p">([](</span><span class="k">const</span> <span class="n">MyMatrix</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">py</span><span class="o">::</span><span class="n">buffer_info</span><span class="p">(</span>
+        <span class="cm">/* the memory block */</span>
+        <span class="n">m</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span>
+        <span class="cm">/* Size of one scalar */</span>
+        <span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span>
+        <span class="cm">/* string, Python struct-style format descriptor */</span>
+        <span class="n">py</span><span class="o">::</span><span class="n">format_descriptor</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;::</span><span class="n">format</span><span class="p">(),</span>
+        <span class="cm">/* Number of dimensions */</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="cm">/* Buffer shape */</span>
+        <span class="p">{</span><span class="n">m</span><span class="p">.</span><span class="n">rows</span><span class="p">(),</span> <span class="n">m</span><span class="p">.</span><span class="n">cols</span><span class="p">()},</span>
+        <span class="cm">/* Strides (in bytes) for each index */</span>
+        <span class="p">{</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">m</span><span class="p">.</span><span class="n">cols</span><span class="p">(),</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">)});</span>
+  <span class="p">});</span>
+</pre></div>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_mat</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">MyMatrix</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">),</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">mylib</span>
+
+<span class="n">mylib</span><span class="o">.</span><span class="n">create_mat</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[14]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0.]], dtype=float32)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="pybind11::array-and-pybind11::array_"><code>pybind11::array</code> and <code>pybind11::array_</code><a class="anchor-link" href="#pybind11::array-and-pybind11::array_">&#182;</a></h2>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Refereces">Refereces<a class="anchor-link" href="#Refereces">&#182;</a></h1><ul>
+<li>buffer protocol<ul>
+<li><a href="https://github.com/pybind/pybind11/blob/ffa346860b306c9bbfb341aed9c14c067751feb8/tests/test_buffers.cpp">test_buffers.cpp</a></li>
+<li><a href="https://github.com/pybind/pybind11/blob/ffa346860b306c9bbfb341aed9c14c067751feb8/tests/test_buffers.py">test_buffers.py</a></li>
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
 </div></section></section>
