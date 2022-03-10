@@ -3,7 +3,10 @@ PYTHON_EXECUTABLE?=$$(pyenv which python3)
 all: lib slides
 
 slides:
-	jupyter nbconvert Pybind11_Buffer_Array_Interface.ipynb --to slides
+	jupyter nbconvert \
+	--to slides \
+	--SlidesExporter.reveal_theme=serif \
+	Pybind11_Buffer_Array_Interface.ipynb
 
 lib:
 	mkdir -p build; \
