@@ -5,7 +5,8 @@
             "includePath": [
                 "${default}",
                 "${workspaceFolder}/thirdparty/pybind11/include",
-                "${workspaceFolder}/include"
+                "${workspaceFolder}/include",
+                "${env:HOME}/.pyenv/versions/3.8.1/include/python3.8/"
             ],
             "defines": [],
             "macFrameworkPath": [
