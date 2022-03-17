@@ -14,7 +14,15 @@ lib:
 	cmake -DPYTHON_EXECUTABLE=$(PYTHON_EXECUTABLE) -S . -B build -DCMAKE_BUILD_TYPE=${BUILD_TYPE}; \
 	cmake --build build
 
+tests:
+	PYTHONPATH=$$(pwd) pytest --pdb -v tests/
+
+debug: lib
+	lldb $(PYTHON_EXECUTABLE) \
+	--one-line "target modules add mylib/$$(ls mylib | grep _mylib.*\.so)" \
+	-- example.py
+
 clean:
 	@cmake --build build --target clean
 
-.PHONY: clean
+.PHONY: clean tests

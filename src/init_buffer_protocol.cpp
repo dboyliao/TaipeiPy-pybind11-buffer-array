@@ -67,18 +67,7 @@ class MyMatrix {
 
 static void print_vector(const std::vector<py::ssize_t> &vec,
                          std::ostream &os = std::cout);
-static void print_buffer_info(py::buffer b) {
-  auto info = b.request();
-  std::cout << "ptr: " << info.ptr << std::endl;
-  std::cout << "item size: " << info.itemsize << std::endl;
-  std::cout << "size: " << info.size << std::endl;
-  std::cout << "format: " << info.format << std::endl;
-  std::cout << "ndim: " << info.ndim << std::endl;
-  std::cout << "shape: ";
-  print_vector(info.shape);
-  std::cout << "strides (in bytes): ";
-  print_vector(info.strides);
-}
+static void print_buffer_info(py::buffer b);
 
 void init_buffer_protocol(py::module m) {
   m.def("print_buffer_info", &print_buffer_info, R"(print buffer info)");
@@ -110,4 +99,17 @@ void print_vector(const std::vector<py::ssize_t> &vec, std::ostream &os) {
     os << vec.back();
   }
   os << "}" << std::endl;
+}
+
+void print_buffer_info(py::buffer b) {
+  auto info = b.request();
+  std::cout << "ptr: " << info.ptr << std::endl;
+  std::cout << "item size: " << info.itemsize << std::endl;
+  std::cout << "size: " << info.size << std::endl;
+  std::cout << "format: " << info.format << std::endl;
+  std::cout << "ndim: " << info.ndim << std::endl;
+  std::cout << "shape: ";
+  print_vector(info.shape);
+  std::cout << "strides (in bytes): ";
+  print_vector(info.strides);
 }

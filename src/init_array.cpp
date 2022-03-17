@@ -82,24 +82,24 @@ py::buffer_info arg_min_impl_(const py::array &in_arr, int32_t axis) noexcept {
     inner_size *= in_info.shape[idx];
   }
 
-  uint32_t *out_data = (uint32_t *)malloc(
-      sizeof(uint32_t) * static_cast<size_t>(outer_size * inner_size));
+  int64_t *out_data = (int64_t *)malloc(
+      sizeof(int64_t) * static_cast<size_t>(outer_size * inner_size));
   T *in_data = (T *)in_info.ptr;
   for (size_t outer = 0; outer < outer_size; ++outer) {
     for (size_t inner = 0; inner < inner_size; ++inner) {
       T min_value = in_data[outer * axis_size * inner_size + inner];
-      size_t min_idx = 0;
+      int64_t min_idx = 0;
       for (size_t i = 0; i < axis_size; ++i) {
         T value = in_data[(outer * axis_size + i) * inner_size + inner];
         if (value <= min_value) {
           min_value = value;
-          min_idx = i;
+          min_idx = static_cast<int64_t>(i);
         }
       }
       out_data[outer * inner_size + inner] = min_idx;
     }
   }
-  py::ssize_t out_stride = sizeof(uint32_t);
+  py::ssize_t out_stride = sizeof(int64_t);
   std::vector<py::ssize_t> out_shape, out_strides;
   for (int idx_ = in_info.ndim - 1; idx_ >= 0; --idx_) {
     size_t idx = static_cast<size_t>(idx_);
@@ -110,8 +110,8 @@ py::buffer_info arg_min_impl_(const py::array &in_arr, int32_t axis) noexcept {
     out_strides.insert(out_strides.begin(), out_stride);
     out_stride *= in_info.shape[idx];
   }
-  py::buffer_info out_info(out_data, sizeof(uint32_t),
-                           py::format_descriptor<uint32_t>::format(),
+  py::buffer_info out_info(out_data, sizeof(int64_t),
+                           py::format_descriptor<int64_t>::format(),
                            in_info.ndim - 1, out_shape, out_strides);
   return out_info;
 }
