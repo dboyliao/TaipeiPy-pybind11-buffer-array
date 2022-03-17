@@ -23,6 +23,8 @@ debug: lib
 	-- example.py
 
 clean:
-	@cmake --build build --target clean
+	@if [ -d build ]; then \
+		cmake --build build --target clean; \
+	fi;
 
 .PHONY: clean tests
