@@ -12,7 +12,7 @@ slides:
 lib:
 	mkdir -p build; \
 	cmake -DPYTHON_EXECUTABLE=$(PYTHON_EXECUTABLE) -S . -B build -DCMAKE_BUILD_TYPE=${BUILD_TYPE}; \
-	cmake --build build
+	cmake --build build -- -j 2
 
 tests:
 	PYTHONPATH=$$(pwd) pytest --pdb -v tests/
