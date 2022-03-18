@@ -13218,7 +13218,46 @@ a.anchor-link {
 <h1 id="The-Numpy-ndarray">The Numpy <code>ndarray</code><a class="anchor-link" href="#The-Numpy-ndarray">&#182;</a></h1>
 </div>
 </div>
-</div></section><section>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">5</span><span class="p">];</span>
+</pre></div>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>arbitrary shape?</li>
+</ul>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>flexible reshape?</li>
+</ul>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>different data type?</li>
+</ul>
+
+</div>
+</div>
+</div></div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
@@ -14962,6 +15001,105 @@ add by given value
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="images/okey_then_what.jpg" alt="okey-then-what"></p>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Non-Trivial-Application:-Array-Elements-Traversal">Non-Trivial Application: Array Elements Traversal<a class="anchor-link" href="#Non-Trivial-Application:-Array-Elements-Traversal">&#182;</a></h2>
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>reduce functions along axis<ul>
+<li>ex: <code>mean</code>, <code>sum</code>, <code>std</code>, ...etc</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Let's see an example, <code>argmin</code></li>
+</ul>
+
+</div>
+</div>
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="n">py</span><span class="o">::</span><span class="n">array</span> <span class="n">argmin</span><span class="p">(</span><span class="k">const</span> <span class="n">py</span><span class="o">::</span><span class="n">array</span> <span class="o">&amp;</span><span class="n">in_arr</span><span class="p">,</span> <span class="kt">int32_t</span> <span class="n">axis</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</pre></div>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="n">py</span><span class="o">::</span><span class="n">buffer_info</span> <span class="n">argmin_impl_</span><span class="p">(</span><span class="k">const</span> <span class="n">py</span><span class="o">::</span><span class="n">array</span> <span class="o">&amp;</span><span class="n">in_arr</span><span class="p">,</span>
+                             <span class="kt">int32_t</span> <span class="n">axis</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="images/reduce_shape.drawio.svg" alt="reduce-shape"></p>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="images/reduce_inner_outer_loop.drawio.svg" alt="reduce-inner-outer-loop"></p>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="kt">int64_t</span> <span class="o">*</span><span class="n">out_data</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int64_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span>
+    <span class="k">sizeof</span><span class="p">(</span><span class="kt">int64_t</span><span class="p">)</span> <span class="o">*</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">outer_size</span> <span class="o">*</span> <span class="n">inner_size</span><span class="p">));</span>
+<span class="n">T</span> <span class="o">*</span><span class="n">in_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">T</span> <span class="o">*</span><span class="p">)</span><span class="n">in_info</span><span class="p">.</span><span class="n">ptr</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">outer</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">outer</span> <span class="o">&lt;</span> <span class="n">outer_size</span><span class="p">;</span> <span class="o">++</span><span class="n">outer</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">inner</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">inner</span> <span class="o">&lt;</span> <span class="n">inner_size</span><span class="p">;</span> <span class="o">++</span><span class="n">inner</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">T</span> <span class="n">min_value</span> <span class="o">=</span> <span class="n">in_data</span><span class="p">[</span><span class="n">outer</span> <span class="o">*</span> <span class="n">axis_size</span> <span class="o">*</span> <span class="n">inner_size</span> <span class="o">+</span> <span class="n">inner</span><span class="p">];</span>
+    <span class="kt">int64_t</span> <span class="n">min_idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">axis_size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">T</span> <span class="n">value</span> <span class="o">=</span> <span class="n">in_data</span><span class="p">[(</span><span class="n">outer</span> <span class="o">*</span> <span class="n">axis_size</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">inner_size</span> <span class="o">+</span> <span class="n">inner</span><span class="p">];</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="n">min_value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">min_value</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+        <span class="n">min_idx</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">out_data</span><span class="p">[</span><span class="n">outer</span> <span class="o">*</span> <span class="n">inner_size</span> <span class="o">+</span> <span class="n">inner</span><span class="p">]</span> <span class="o">=</span> <span class="n">min_idx</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's change from <code>py::array_&lt;T&gt;</code> to <code>py::array</code>!</p>
 <div class="highlight"><pre><span></span><span class="n">py</span><span class="o">::</span><span class="n">array</span> <span class="n">array_add_value</span><span class="p">(</span><span class="k">const</span> <span class="n">py</span><span class="o">::</span><span class="n">array</span> <span class="o">&amp;</span><span class="n">in_arr</span><span class="p">,</span> <span class="kt">double</span> <span class="n">v</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">auto</span> <span class="n">info</span> <span class="o">=</span> <span class="n">in_arr</span><span class="p">.</span><span class="n">request</span><span class="p">();</span>
@@ -15087,9 +15225,13 @@ add by given value
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Refereces">Refereces<a class="anchor-link" href="#Refereces">&#182;</a></h1><ul>
-<li>buffer protocol<ul>
+<li><code>pybind11</code> buffer protocol<ul>
 <li><a href="https://github.com/pybind/pybind11/blob/ffa346860b306c9bbfb341aed9c14c067751feb8/tests/test_buffers.cpp">test_buffers.cpp</a></li>
 <li><a href="https://github.com/pybind/pybind11/blob/ffa346860b306c9bbfb341aed9c14c067751feb8/tests/test_buffers.py">test_buffers.py</a></li>
+</ul>
+</li>
+<li><code>uTensor</code><ul>
+<li><a href="https://github.com/uTensor/uTensor">https://github.com/uTensor/uTensor</a></li>
 </ul>
 </li>
 </ul>

@@ -15,12 +15,13 @@ lib:
 	cmake --build build -- -j 2
 
 tests:
-	PYTHONPATH=$$(pwd) pytest --pdb -v tests/
+	PYTHONPATH=$$(pwd) pytest --pdb -s -v tests/
 
 debug: lib
 	lldb $(PYTHON_EXECUTABLE) \
 	--one-line "target modules add mylib/$$(ls mylib | grep _mylib.*\.so)" \
-	-- example.py
+	-- -m pytest tests \
+	-vv --pdb
 
 clean:
 	@if [ -d build ]; then \

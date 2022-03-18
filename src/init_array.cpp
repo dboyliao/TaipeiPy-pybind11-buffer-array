@@ -9,16 +9,18 @@ namespace py = pybind11;
 
 static py::array_t<double> array_add_value(const py::array_t<double> &in_arr,
                                            double v = 1.0);
-static py::array arg_min(const py::array &in_arr, int32_t axis = -1);
+static py::array argmin(const py::array &in_arr, int32_t axis = -1,
+                        bool keepdims = false);
 template <typename T>
-py::buffer_info arg_min_impl_(const py::array &in_arr,
-                              int32_t axis = -1) noexcept;
+py::buffer_info argmin_impl_(const py::array &in_arr, int32_t axis = -1,
+                             bool keepdims = false) noexcept;
 
 void init_array(py::module m) {
   m.def("array_add_value", &array_add_value, R"(add by given value)",
         py::arg("input_array"), py::arg("value") = 0.0)
-      .def("arg_min", &arg_min, R"(argmin along given axis)",
-           py::arg("input_array"), py::arg("axis") = -1);
+      .def("argmin", &argmin, R"(argmin along given axis)",
+           py::arg("input_array"), py::arg("axis") = -1,
+           py::arg("keepdims") = false);
 }
 
 py::array_t<double> array_add_value(const py::array_t<double> &in_arr,
@@ -34,31 +36,31 @@ py::array_t<double> array_add_value(const py::array_t<double> &in_arr,
   return py::array_t<double>(out_info);
 }
 
-py::array arg_min(const py::array &in_arr, int32_t axis) {
+py::array argmin(const py::array &in_arr, int32_t axis, bool keepdims) {
   auto info = in_arr.request();
   py::buffer_info out_info;
   if (info.format == py::format_descriptor<float>::format()) {
-    out_info = arg_min_impl_<float>(in_arr, axis);
+    out_info = argmin_impl_<float>(in_arr, axis, keepdims);
   } else if (info.format == py::format_descriptor<double>::format()) {
-    out_info = arg_min_impl_<double>(in_arr, axis);
+    out_info = argmin_impl_<double>(in_arr, axis, keepdims);
   } else if (info.format == py::format_descriptor<long double>::format()) {
-    out_info = arg_min_impl_<long double>(in_arr, axis);
+    out_info = argmin_impl_<long double>(in_arr, axis, keepdims);
   } else if (info.format == py::format_descriptor<int8_t>::format()) {
-    out_info = arg_min_impl_<int8_t>(in_arr, axis);
+    out_info = argmin_impl_<int8_t>(in_arr, axis, keepdims);
   } else if (info.format == py::format_descriptor<uint8_t>::format()) {
-    out_info = arg_min_impl_<uint8_t>(in_arr, axis);
+    out_info = argmin_impl_<uint8_t>(in_arr, axis, keepdims);
   } else if (info.format == py::format_descriptor<uint16_t>::format()) {
-    out_info = arg_min_impl_<uint16_t>(in_arr, axis);
+    out_info = argmin_impl_<uint16_t>(in_arr, axis, keepdims);
   } else if (info.format == py::format_descriptor<int16_t>::format()) {
-    out_info = arg_min_impl_<int16_t>(in_arr, axis);
+    out_info = argmin_impl_<int16_t>(in_arr, axis, keepdims);
   } else if (info.format == py::format_descriptor<int32_t>::format()) {
-    out_info = arg_min_impl_<int32_t>(in_arr, axis);
+    out_info = argmin_impl_<int32_t>(in_arr, axis, keepdims);
   } else if (info.format == py::format_descriptor<uint32_t>::format()) {
-    out_info = arg_min_impl_<uint32_t>(in_arr, axis);
+    out_info = argmin_impl_<uint32_t>(in_arr, axis, keepdims);
   } else if (info.format == py::format_descriptor<int64_t>::format()) {
-    out_info = arg_min_impl_<int64_t>(in_arr, axis);
+    out_info = argmin_impl_<int64_t>(in_arr, axis, keepdims);
   } else if (info.format == py::format_descriptor<uint64_t>::format()) {
-    out_info = arg_min_impl_<uint64_t>(in_arr, axis);
+    out_info = argmin_impl_<uint64_t>(in_arr, axis, keepdims);
   } else {
     throw std::runtime_error("unsupported input datatype " + info.format);
   }
@@ -66,14 +68,14 @@ py::array arg_min(const py::array &in_arr, int32_t axis) {
 }
 
 template <typename T>
-py::buffer_info arg_min_impl_(const py::array &in_arr, int32_t axis) noexcept {
+py::buffer_info argmin_impl_(const py::array &in_arr, int32_t axis,
+                             bool keepdims) noexcept {
   auto in_info = in_arr.request();
   if (axis < 0) {
     axis += in_info.ndim;
   }
   size_t axis_idx = static_cast<size_t>(axis);
-  py::ssize_t axis_size = in_info.shape[axis_idx];
-  py::ssize_t outer_size = 1;
+  py::ssize_t axis_size = in_info.shape[axis_idx], outer_size = 1;
   for (size_t idx = 0; idx < axis_idx; ++idx) {
     outer_size *= in_info.shape[idx];
   }
@@ -101,8 +103,8 @@ py::buffer_info arg_min_impl_(const py::array &in_arr, int32_t axis) noexcept {
   }
   py::ssize_t out_stride = sizeof(int64_t);
   std::vector<py::ssize_t> out_shape, out_strides;
-  for (int idx_ = in_info.ndim - 1; idx_ >= 0; --idx_) {
-    size_t idx = static_cast<size_t>(idx_);
+  for (size_t idx_next = in_info.ndim; idx_next > 0; --idx_next) {
+    size_t idx = idx_next - 1;
     if (idx == axis_idx) {
       continue;
     }
@@ -110,8 +112,13 @@ py::buffer_info arg_min_impl_(const py::array &in_arr, int32_t axis) noexcept {
     out_strides.insert(out_strides.begin(), out_stride);
     out_stride *= in_info.shape[idx];
   }
+  if (keepdims) {
+    out_shape.insert(out_shape.begin() + axis_idx, 1);
+    out_strides.insert(out_strides.begin() + axis_idx, 0);
+  }
+  py::ssize_t out_ndim = keepdims ? in_info.ndim : in_info.ndim - 1;
   py::buffer_info out_info(out_data, sizeof(int64_t),
-                           py::format_descriptor<int64_t>::format(),
-                           in_info.ndim - 1, out_shape, out_strides);
+                           py::format_descriptor<int64_t>::format(), out_ndim,
+                           out_shape, out_strides);
   return out_info;
 }
